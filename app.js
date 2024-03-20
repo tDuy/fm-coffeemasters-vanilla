@@ -1,7 +1,11 @@
 import Store from "./services/store.js";
-import API from "./services/api.js";
 import { loadMenu } from "./services/Menu.js";
 import Router from "./services/Router.js";
+
+// Link web components
+import { MenuPage } from "./components/MenuPage.js";
+import { OrderPage } from "./components/OrderPage.js";
+import { DetailsPage } from "./components/DetailsPage.js";
 
 window.app = {
   store: Store,
@@ -22,24 +26,20 @@ const routes = [
   {
     pathname: "/",
     getComponent: () => {
-      const element = document.createElement("h1");
-      element.textContent = "Welcome to our restaurant!";
-      return element;
+      return document.createElement("menu-page");
     },
   },
   {
     pathname: "/order",
     getComponent: () => {
-      const element = document.createElement("h1");
-      element.textContent = "Order";
-      return element;
+      return document.createElement("order-page");
     },
   },
   {
     pathname: "/product/:id",
     getComponent: (path) => {
       const id = path.match(/\/product\/(\d+)/)[1];
-      const element = document.createElement("h1");
+      const element = document.createElement("details-page");
       element.textContent = `Order ${id}`;
       element.dataset.id = id;
       return element;

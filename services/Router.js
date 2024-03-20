@@ -30,7 +30,6 @@ const Router = {
       pageElement = routeExists.getComponent(route);
     }
 
-
     if (pageElement) {
       const main = $('main');
       main.innerHTML = '';
