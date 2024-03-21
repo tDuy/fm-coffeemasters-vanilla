@@ -6,6 +6,8 @@ import Router from "./services/Router.js";
 import { MenuPage } from "./components/MenuPage.js";
 import { OrderPage } from "./components/OrderPage.js";
 import { DetailsPage } from "./components/DetailsPage.js";
+import ProductItem from "./components/ProductItem.js";
+import CartItem from "./components/CartItem.js";
 
 window.app = {
   store: Store,
@@ -41,7 +43,7 @@ const routes = [
       const id = path.match(/\/product\/(\d+)/)[1];
       const element = document.createElement("details-page");
       element.textContent = `Order ${id}`;
-      element.dataset.id = id;
+      element.dataset.productId = id;
       return element;
     },
   },
@@ -53,3 +55,10 @@ window.addEventListener("DOMContentLoaded", async () => {
   loadMenu();
   app.router.init(routes);
 });
+
+window.addEventListener("app-cart-updated", () => {
+  const badge = $("#badge");
+  const qty = app.store.cart.reduce((acc, p) => acc + p.quantity, 0);
+  badge.textContent = qty;
+  badge.hidden = qty == 0;
+})
